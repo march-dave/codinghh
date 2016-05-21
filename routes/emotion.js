@@ -4,6 +4,8 @@ var express = require('express');
 var request = require("request");
 var router = express.Router();
 
+var Facedetect = require('../models/facedetect');
+
 /* GET users listing. */
 // router.post('/', function(req, res, next) {
 //
@@ -59,25 +61,32 @@ router.route('/')
         },  json: true
       };
 
-      request(options, function (err, response, body) {
-        console.log(body);
-      });
-
-
-
-
-
-
-      // console.log('req.body: ', req.body);
-      console.log('req.body: ', req.body.url);
-
-      // request(options, function (error, response, body) {
+      // console.log(body);
+      // var facedetect = new Facedetect(body);
+      // console.log(facedetect);
       //
-      // if (error) throw new Error(error);
+      // var facedetect = {
+      //   faceId: 'a0dbf154-1d6d-40f0-8183-39b8d4e32cc1'
+      // }
       //
-      //   console.log(body);
+      // var f = new Facedetect(facedetect);
       //
+      // f.save( (err, facedetect) => {
+      //   console.log('err:', err);
       // });
+
+      request(options, function (err, response, body) {
+        if(err) {
+          throw new Error(err);
+        } else {
+
+          var facedetect = new Facedetect(body);
+          //
+          facedetect.save( (err, facedetect) => {
+            console.log('err:', err);
+          });
+        }
+      });
 
       res.send('respond with a resource');
 

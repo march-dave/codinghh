@@ -1,5 +1,7 @@
 require('dotenv').load();
 
+const PORT = process.env.PORT || 3000;
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -11,6 +13,12 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+var mongoose = require('mongoose');
+const MONGOURL = process.env.MONGODB_URI || 'mongodb://localhost:/ch1-app'
+mongoose.connect(MONGOURL, err => {
+    console.log(err || `Connected to MongoDB at ${MONGOURL}`);
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
