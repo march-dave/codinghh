@@ -59,6 +59,15 @@ router.route('/')
         },  json: true
       };
 
+      request(options, function (err, response, body) {
+        console.log(body);
+      });
+
+
+
+
+
+
       // console.log('req.body: ', req.body);
       console.log('req.body: ', req.body.url);
 
