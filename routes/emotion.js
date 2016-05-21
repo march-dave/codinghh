@@ -80,10 +80,14 @@ router.route('/')
           throw new Error(err);
         } else {
 
-          var facedetect = new Facedetect(body);
+          console.log('body', body[0]);
+
+          var facedetect = new Facedetect(body[0]);
           //
           facedetect.save( (err, facedetect) => {
-            console.log('err:', err);
+            // console.log('body:', body);
+            // console.log('err:', err);
+            console.log('var facedetect:', facedetect);
           });
         }
       });

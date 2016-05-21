@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 
 var facedetectSchema = new mongoose.Schema({
     faceId: {type: String}
-    // ,faceRectangle: {type: String}
+    ,faceRectangle: {type: Object}
 });
 
 var Facedetect = mongoose.model('Facedetect', facedetectSchema);
