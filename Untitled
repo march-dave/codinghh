@@ -1,0 +1,67 @@
+'use strict';
+
+var mongoose = require('mongoose');
+
+var facedetectSchema = new mongoose.Schema({
+    faceId: {type: String}
+    ,faceRectangle: {type: Object}
+});
+
+// facedetectSchema.static.save = function(fdObj, cb) {
+facedetectSchema.statics.save = function(fdObj, cb) {
+
+    console.log('save()');
+    var facedetect = new Facedetect({
+        // faceId: fdObj.faceId
+        faceRectangle: fdObj.faceRectangle
+    });
+
+    facedetect.save(cb);
+}
+
+facedetectSchema.statics.update = (id, fdObj, cb) => {
+
+      Facedetect.findByIdAndUpdate(req.params.id, {$set: req.body}, (err, facedetect) => {
+
+        if (err) return res.status(400).send(err);
+
+        // console.log('facedetect: ', facedetect);
+        // console.log('req.body: ', req.body);
+
+        // facedetect.save();
+
+        // console.log('facedetect: ', facedetect);
+        // console.log('facedetect.top: ', req.body.top);
+        // console.log('facedetect: ', req.body);
+
+        // var r = {
+        //
+        //   "_id": req.params.id,
+        //   // "faceId": "bc06f4c3-e2b7-4b47-a409-8e41032ed2f5",
+        //
+        //     "faceRectangle": {
+        //       "top: req.body.top,
+        //       "left": req.body.left,
+        //       "width": req.body.width,
+        //       "height": req.body.height
+        //     }
+        // };
+        //
+        // facedetect._id = req.params.id;
+        // facedetect.faceRectangle.top = req.body.top;
+        // facedetect.faceRectangle.left = req.body.left;
+        // facedetect.faceRectangle.width = req.body.width;
+        // facedetect.faceRectangle.height = req.body.height;
+
+        facedetect.save((err, saveFacedetect) => {
+          if(err)cb (err);
+
+          cb(null, saveFacedetect);
+        });
+    }
+}
+
+
+
+var Facedetect = mongoose.model('Facedetect', facedetectSchema);
+module.exports = Facedetect;

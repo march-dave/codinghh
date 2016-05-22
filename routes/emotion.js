@@ -10,12 +10,43 @@ var apiUrl = 'https://api.projectoxford.ai/face/v1.0/detect';
 
 router.get('/:id', (req, res) => {
 
-  Facedetect.findById(req.params.id, (err, properties) => {
+  Facedetect.findById(req.params.id, (err, facedetects) => {
     if(err) {
       res.status(400).send(err);
     } else {
-      res.send(properties);
+      res.send(facedetects);
     }
+  });
+});
+
+router.delete('/:id', (req, res) => {
+  Facedetect.findByIdAndRemove(req.params.id, (err, facedetects) => {
+    if(err) {
+      res.status(400).send(err);
+    } else {
+      res.send();
+    }
+  });
+});
+
+router.put('/:id', (req, res) => {
+
+  var bodyObj = {
+
+    faceId: req.body.faceId,
+
+      faceRectangle: {
+        top: req.body.top,
+        left: req.body.left,
+        width: req.body.width,
+        height: req.body.height
+      }
+  };
+
+  Facedetect.update(req.params.id, bodyObj, (err, result) => {
+    if(err) throw new Error(err)
+
+    res.send(result);
   });
 });
 
