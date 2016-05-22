@@ -33,6 +33,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/users', users);
+app.use('/api/S3', require('./routes/S3'));
 app.use('/api', require('./routes/api'));
 app.use('/', routes);
 
